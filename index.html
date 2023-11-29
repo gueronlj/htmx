@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>HTMX Baby</title>
+      <script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
+      <link rel="stylesheet" type="text/css" href="styles.css">
+
+   </head>
+   <body>
+      <h1>The Fruits in Question</h1>
+      <div class="container" id="fruit-list">
+         
+         {{ range .Stuff }}
+            {{block  "fruit-ele" .}}
+               <h2>{{ .Name }}</h2>
+               <p>Color: {{ .Color }}</p>
+            {{end}}
+         {{ end }}
+
+      </div>
+      <h1 id="submit-btn" class="htmx-indicator">Loading</h1>
+      <h1>Add a Fruit</h1>
+      <form hx-post="/add-fruit" hx-target="#fruit-list" hx-swap="beforeend" hx-indicator="#submit-btn">
+
+         <label for="name">Name</label>
+         <input type="text" id="name" name="name">
+         <br>
+
+         <label for="color">Color</label>
+         <input type="text" id="color" name="color">
+         <br>
+         <button type="submit">            
+            Add                     
+         </button>
+         
+      </form>
+   </body>
+</html>
